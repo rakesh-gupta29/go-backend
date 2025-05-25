@@ -1,0 +1,43 @@
+{{define "book-form"}}
+<form 
+    hx-{{if .Book.ID}}put{{else}}post{{end}}="/books{{if .Book.ID}}/{{.Book.ID}}{{end}}"
+    hx-target="#modal"
+    class="space-y-4">
+    
+    <div>
+        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+        <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            value="{{.Book.Name}}"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            required>
+    </div>
+
+    <div>
+        <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+        <select 
+            id="status" 
+            name="status"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+            <option value="draft" {{if eq .Book.Status "draft"}}selected{{end}}>Draft</option>
+            <option value="published" {{if eq .Book.Status "published"}}selected{{end}}>Published</option>
+        </select>
+    </div>
+
+    <div class="flex justify-end space-x-2">
+        <button 
+            type="button"
+            class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+            onclick="document.getElementById('modal').classList.add('hidden')">
+            Cancel
+        </button>
+        <button 
+            type="submit"
+            class="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700">
+            {{if .Book.ID}}Update{{else}}Create{{end}}
+        </button>
+    </div>
+</form>
+{{end}} 
